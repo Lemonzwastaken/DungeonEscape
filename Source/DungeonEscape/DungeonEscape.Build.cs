@@ -24,13 +24,7 @@ public class DungeonEscape : ModuleRules
 		PrivateDependencyModuleNames.AddRange(new string[] { });
 
 		PublicIncludePaths.AddRange(new string[] {
-			"DungeonEscape",
-			"DungeonEscape/Variant_Horror",
-			"DungeonEscape/Variant_Horror/UI",
-			"DungeonEscape/Variant_Shooter",
-			"DungeonEscape/Variant_Shooter/AI",
-			"DungeonEscape/Variant_Shooter/UI",
-			"DungeonEscape/Variant_Shooter/Weapons"
+			"DungeonEscape"
 		});
 
 		// Uncomment if you are using Slate UI
