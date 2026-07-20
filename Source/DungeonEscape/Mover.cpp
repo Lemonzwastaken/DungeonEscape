@@ -29,6 +29,8 @@ void UMover::BeginPlay()
 // Called every frame
 void UMover::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
 
 	//Should move
 	if (ShouldMove)
