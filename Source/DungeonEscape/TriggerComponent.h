@@ -4,6 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Components/BoxComponent.h"
+#include "Mover.h"
+
+
+
+
 #include "TriggerComponent.generated.h"
 
 /**
@@ -15,6 +20,10 @@ class DUNGEONESCAPE_API UTriggerComponent : public UBoxComponent
 {
 	GENERATED_BODY()
 	
+public:
+
+	UTriggerComponent();
+
 protected:
 
 	virtual void BeginPlay() override;
@@ -23,6 +32,9 @@ public:
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UPROPERTY(EditAnywhere)
+	AActor* MoverActor;
 
+	UMover* Mover;
 
 };
