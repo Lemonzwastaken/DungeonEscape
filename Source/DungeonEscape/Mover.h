@@ -33,10 +33,18 @@ public:
 	UPROPERTY(EditAnywhere)
 	float MoveTime = 4.0f;
 
+	UPROPERTY(VisibleAnywhere)
+	bool ReachedTarget = false;
+
+	bool GetShouldMove();
+	void SetShouldMove(bool NewShouldMove);
+
+private:
+
 	UPROPERTY(EditAnywhere)
 	bool ShouldMove = false;
 
-	UPROPERTY(VisibleAnywhere)
-	bool ReachedTarget = false;
+
+
 
 };

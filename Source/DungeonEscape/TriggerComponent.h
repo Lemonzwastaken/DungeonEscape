@@ -35,6 +35,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	bool IsPressurePlate = false;
 
+	UPROPERTY(VisibleAnywhere)
+	int32 ActivatorCount = 0;
+
 	UPROPERTY(EditAnywhere)
 	AActor* MoverActor;
 	UMover* Mover;
