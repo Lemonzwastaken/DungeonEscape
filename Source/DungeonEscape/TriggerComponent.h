@@ -39,6 +39,8 @@ public:
 	AActor* MoverActor;
 	UMover* Mover;
 
+	UPROPERTY(VisibleAnywhere)
+	bool IsTriggered = false;
 
 	UFUNCTION()
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -46,5 +48,6 @@ public:
 	UFUNCTION()
 	void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
+	void Trigger(bool NewTrigggerValue);
 
 };
