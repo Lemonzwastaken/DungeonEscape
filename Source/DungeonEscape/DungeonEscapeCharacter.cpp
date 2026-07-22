@@ -91,8 +91,15 @@ void ADungeonEscapeCharacter::Interact()
 
 		if (HitActor->ActorHasTag("CollectableItem"))
 		{
+			//Hit Actor is a collectible item
+			UE_LOG(LogTemp, Display, TEXT("Collectible Item"));
 
 		}
+		else if (HitActor->ActorHasTag("Lock"))
+		{
+			UE_LOG(LogTemp, Display, TEXT("Lock item"));
+		}
+
 	}
 	else
 	{
