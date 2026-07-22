@@ -48,6 +48,9 @@ protected:
 	/** Mouse Look Input Action */
 	UPROPERTY(EditAnywhere, Category ="Input")
 	class UInputAction* MouseLookAction;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	class UInputAction* InteractAction;
 	
 public:
 	ADungeonEscapeCharacter();
@@ -76,6 +79,8 @@ protected:
 	UFUNCTION(BlueprintCallable, Category="Input")
 	virtual void DoJumpEnd();
 
+
+
 protected:
 
 	/** Set up input action bindings */
@@ -89,6 +94,8 @@ public:
 
 	/** Returns first person camera component **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
+
+	void Interact();
 
 };
 
