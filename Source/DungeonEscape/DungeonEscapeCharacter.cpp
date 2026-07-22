@@ -71,9 +71,37 @@ void ADungeonEscapeCharacter::SetupPlayerInputComponent(UInputComponent* PlayerI
 void ADungeonEscapeCharacter::Interact()
 {
 
-	UE_LOG(LogTemp, Display, TEXT("INTERAC!!!!"));
+	FVector StartLocation = FirstPersonCameraComponent->GetComponentLocation();
+	FVector EndLocation = StartLocation + (FirstPersonCameraComponent->GetForwardVector() * MaxInteractDistance);
+
+	DrawDebugLine(GetWorld(), StartLocation, EndLocation, FColor::Red, false, 5.0f);
+
+	FCollisionShape InteractionSphere = FCollisionShape::MakeSphere(InteractionSphereRadius);
+
+	DrawDebugSphere(GetWorld(), EndLocation, InteractionSphereRadius, 20, FColor::Blue, false, 5.0f);
+	DrawDebugSphere(GetWorld(), StartLocation, InteractionSphereRadius, 20, FColor::Yellow, false, 5.0f);
+
+	FHitResult HitResult;
+	bool HasHit = GetWorld()->SweepSingleByChannel(HitResult, StartLocation, EndLocation, FQuat::Identity, ECC_GameTraceChannel2, InteractionSphere);
+
+	if (HasHit)
+	{
+		AActor* HitActor = HitResult.GetActor();
+		UE_LOG(LogTemp, Display, TEXT("Hit actor is: %s"), *HitActor->GetActorNameOrLabel());
+
+		if (HitActor->ActorHasTag("CollectableItem"))
+		{
+
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Display, TEXT("No actor hit"));
+	}
+
 
 }
+
 
 
 void ADungeonEscapeCharacter::MoveInput(const FInputActionValue& Value)
