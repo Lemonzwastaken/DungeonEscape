@@ -28,8 +28,6 @@ void ALock::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetKeyPlaced(true);
-
 
 }
 

@@ -98,11 +98,11 @@ void ADungeonEscapeCharacter::Interact()
 
 			if (CollectibleItem)
 			{
-				UE_LOG(LogTemp, Display, TEXT("Collectible Item with name %s"), *CollectibleItem->ItemName);
-			}
-			else
-			{
-				UE_LOG(LogTemp, Display, TEXT("Cast Failed"));
+				ItemList.Add(CollectibleItem->ItemName);
+
+				CollectibleItem->Destroy();
+				CollectibleItem = nullptr;
+
 			}
 
 
@@ -114,9 +114,20 @@ void ADungeonEscapeCharacter::Interact()
 			ALock* Lock = Cast<ALock>(HitActor);
 			if (Lock)
 			{
-				UE_LOG(LogTemp, Display, TEXT("Lock with Key %s"), *Lock->KeyItemName);
+				if (!Lock->GetIsKeyPlaced())
+				{
+					int32 ItemsRemoved = ItemList.RemoveSingle(Lock->KeyItemName);
+					if (ItemsRemoved == 1)
+					{
+						Lock->SetKeyPlaced(true);
+					}
+				}
+				else
+				{
+					ItemList.Add(Lock->KeyItemName);
+					Lock->SetKeyPlaced(false);
+				}
 			}
-
 
 		}
 
