@@ -27,6 +27,10 @@ void UTriggerComponent::BeginPlay()
 		OnComponentBeginOverlap.AddDynamic(this, &UTriggerComponent::OnOverlapBegin);
 		OnComponentEndOverlap.AddDynamic(this, &UTriggerComponent::OnOverlapEnd);
 
+		StartLocation = GetOwner()->GetActorLocation();
+		EndLocation = StartLocation + MoveOffset;
+
+
 	}
 
 }
@@ -34,6 +38,27 @@ void UTriggerComponent::BeginPlay()
 void UTriggerComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	//Moving the pressure plate
+	FVector CurrentLocation = GetOwner()->GetActorLocation();
+	ReachedTarget = CurrentLocation.Equals(FinalLocation);
+	float MoveTime = 3.0f;
+
+	if (IsTriggered && (!ReachedTarget))
+	{
+		float Speed = MoveOffset.Length() / MoveTime;
+		FVector NewLocation = FMath::VInterpConstantTo(CurrentLocation, EndLocation, DeltaTime, Speed);
+
+		GetOwner()->SetActorLocation(NewLocation);
+	}
+	else
+	{
+		float Speed = MoveOffset.Length() / MoveTime;
+		FVector NewLocation = FMath::VInterpConstantTo(CurrentLocation, StartLocation, DeltaTime, Speed);
+
+		GetOwner()->SetActorLocation(NewLocation);
+	}
+
 
 }
 
@@ -45,6 +70,7 @@ void UTriggerComponent::Trigger(bool NewTrigggerValue)
 	{
 		Mover->SetShouldMove(IsTriggered);
 	}
+
 }
 
 void UTriggerComponent::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -57,6 +83,7 @@ void UTriggerComponent::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AAct
 
 		if (!IsTriggered)
 		{
+			FinalLocation = EndLocation;
 			Trigger(true);
 		}
 	}
@@ -68,9 +95,9 @@ void UTriggerComponent::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor
 	{
 		//Set Activator Count
 		ActivatorCount --;
-
 		if (IsTriggered && (ActivatorCount <= 0))
 		{
+			FinalLocation = StartLocation;
 			Trigger(false);
 		}
 	}

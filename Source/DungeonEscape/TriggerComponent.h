@@ -53,4 +53,12 @@ public:
 
 	void Trigger(bool NewTrigggerValue);
 
+	//Move the pressure plate
+	FVector StartLocation;
+	FVector EndLocation;
+	FVector FinalLocation;
+	UPROPERTY(EditAnywhere)
+	FVector MoveOffset = { 0.0f, 0.0f, -5.0f };
+
+	bool ReachedTarget;
 };
