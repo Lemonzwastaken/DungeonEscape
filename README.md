@@ -46,12 +46,13 @@ This showcase combines C++ with Blueprints, focused on demonstrating basic playe
 
 You can also check it out on itch.io as well
 
-
+![itch](https://lemonglemongg.itch.io/dungeon-escape-showcase)
 
 More updates and more maps will also be added to this system soon.
 
 Feel free to check it out.
 
+![Youtube](https://www.youtube.com/watch?v=2ED_53Zj5m8)
 
 ## License
 
